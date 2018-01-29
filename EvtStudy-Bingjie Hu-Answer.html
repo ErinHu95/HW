@@ -1,0 +1,258 @@
+<html>
+<head>
+<style type="text/css">
+.knitr .inline {
+  background-color: #f7f7f7;
+  border:solid 1px #B0B0B0;
+}
+.error {
+	font-weight: bold;
+	color: #FF0000;
+}
+.warning {
+	font-weight: bold;
+}
+.message {
+	font-style: italic;
+}
+.source, .output, .warning, .error, .message {
+	padding: 0 1em;
+  border:solid 1px #F7F7F7;
+}
+.source {
+  background-color: #f5f5f5;
+}
+.rimage .left {
+  text-align: left;
+}
+.rimage .right {
+  text-align: right;
+}
+.rimage .center {
+  text-align: center;
+}
+.hl.num {
+  color: #AF0F91;
+}
+.hl.str {
+  color: #317ECC;
+}
+.hl.com {
+  color: #AD95AF;
+  font-style: italic;
+}
+.hl.opt {
+  color: #000000;
+}
+.hl.std {
+  color: #585858;
+}
+.hl.kwa {
+  color: #295F94;
+  font-weight: bold;
+}
+.hl.kwb {
+  color: #B05A65;
+}
+.hl.kwc {
+  color: #55aa55;
+}
+.hl.kwd {
+  color: #BC5A65;
+  font-weight: bold;
+}
+</style>
+<style> 
+p {margin-left: 20px}
+</style>
+</head>
+
+<h1 style = "text-align:center; font-size:40px">Project 2-Event Study</h1>
+<h2 style = "text-align:center">Bingjie Hu</h2>
+
+<body>
+
+<h1>Executive Summary</h1>
+
+
+<p style = "font-family:arial; line-height:20px">
+The project constructs event-driven strategy which researches on the effect of dividend payment announcement on the stock price. We computed excess return over the S&P 500 Index of each stock from <b>2010/01/01</b> to <b>2016/12/31</b>, and concluded that the event of dividend payment has very short positive effect on the stock price.
+</p>
+
+
+<h1>Key Question</h1>
+
+<p style = "font-family:arial; line-height:20px">
+What happened to the stock return (minus the S&P500 on the same day) from days -20 through day +20, each day by day?
+</p>
+
+<h1>Summary Statistics</h1>
+
+<p style = "font-family:arial; line-height:20px">
+The average stock prices in the event period are listed in the following table:
+</p>
+
+<table border = "1" style = "test-align:center">
+<tr>
+<td>Event Day</td>
+<td>-20</td>
+<td>-19</td>
+<td>-18</td>
+<td>-17</td>
+<td>-16</td>
+<td>-15</td>
+<td>-14</td>
+<td>-13</td>
+<td>-12</td>
+<td>-11</td>
+<td>-10</td>
+<td>-9</td>
+<td>-8</td>
+<td>-7</td>
+<td>-6</td>
+<td>-5</td>
+<td>-4</td>
+<td>-3</td>
+<td>-2</td>
+<td>-1</td>
+</tr>
+<tr>
+<td>Stock Mean</td>  
+<td>-0.000059</td>
+<td>-0.000464</td>
+<td>-0.000143</td>
+<td>-0.000080</td>
+<td>-0.000229</td>
+<td>0.000402</td>
+<td>0.000074</td>
+<td>0.000353</td>
+<td>0.000247</td>
+<td>-0.000058</td>
+<td>-0.000143</td>
+<td>0.000099</td>
+<td>0.000235</td>
+<td>0.000243</td>
+<td>-0.000131</td>
+<td>0.000461</td>
+<td>0.000025</td>
+<td>0.000086</td>
+<td>0.000136</td>
+<td>0.000339</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+<td>6</td>
+<td>7</td>
+<td>8</td>
+<td>9</td>
+<td>10</td>
+<td>11</td>
+<td>12</td>
+<td>13</td>
+<td>14</td>
+<td>15</td>
+<td>16</td>
+<td>17</td>
+<td>18</td>
+<td>19</td>
+<td>20</td>
+</tr>
+<tr>
+<td>0.000410</td> 
+<td>-0.000544</td>
+<td>-0.000574</td>
+<td>-0.000698</td>
+<td>0.000028</td>
+<td>-0.000090</td>
+<td>0.000267</td>
+<td>0.000514</td>
+<td>0.000205</td>
+<td>0.000069</td>
+<td>0.000077</td>
+<td>-0.000165</td>
+<td>0.000066</td>
+<td>0.000103</td>
+<td>0.000140</td>
+<td>0.000033</td>
+<td>-0.000068</td>
+<td>-0.000103</td>
+<td>0.000141</td>
+<td>-0.000182</td>
+<td>-0.000064</td>
+</tr>
+
+</table>
+
+<p style = "font-family:arial; line-height:20px">
+The performance of the average stock return between the 20 days before the event date and 20 days after the event date is plotted in the following graph:
+</p>
+
+<img src="https://image.ibb.co/fv5k4G/stock_return.png" alt="stock_return" border="0">
+
+<h1>Methodology</h1>
+
+<h2>Data Resource</h2>
+
+<p style = "font-family:arial; line-height:20px">
+1.The daily stock return data are imported from Wrds CRSP-Stock/Security Files daily Holding Period Return.
+<br /><br />
+2.The S&P 500 daily return are imported from Wrds CRSP-Stock/Security Files S&P Composite Index.
+</p>
+
+<h2>Steps</h2>
+<p style = "font-family:arial; line-height:20px">
+1.Delete missing values in daily stock return.
+<br /><br />
+2.Compute excess return using the following equation:
+<br /><br />
+R<sup>e</sup> = R<sub>stock</sub> - R<sub>S&P500</sub>
+<br /><br />
+3.Select excess returns from the 20 trading days before the dividend payment announcement day and 20 trading days after it, excluding data which are out of the time period (2010-2016).
+<br /><br />
+4.Compute average excess return of each day and plot.
+</p>
+
+<h1>Computer Code</h1>
+
+
+<div class="chunk" id="unnamed-chunk-1"><div class="rcode"><div class="source"><pre class="knitr r"><span class="hl kwd">library</span><span class="hl std">(data.table)</span>
+<span class="hl std">data</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">fread</span><span class="hl std">(</span><span class="hl str">&quot;C:/Users/bingj/Google Drive/2018 WINTER/Corporate Finance and Risk Management/Project2/equity.csv&quot;</span><span class="hl std">)</span>
+<span class="hl std">data</span><span class="hl opt">$</span><span class="hl std">RET[data</span><span class="hl opt">$</span><span class="hl std">RET</span><span class="hl opt">==</span><span class="hl str">&quot;c&quot;</span><span class="hl std">]</span> <span class="hl kwb">&lt;-</span> <span class="hl num">NA</span>
+<span class="hl std">data</span><span class="hl opt">$</span><span class="hl std">RET</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">as.numeric</span><span class="hl std">(data</span><span class="hl opt">$</span><span class="hl std">RET)</span>
+<span class="hl std">data</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">na.omit</span><span class="hl std">(data)</span>
+<span class="hl std">ndata</span> <span class="hl kwb">&lt;-</span> <span class="hl std">data</span>
+<span class="hl std">data</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">as.data.table</span><span class="hl std">(data)</span>
+<span class="hl std">data[,</span><span class="hl str">&quot;ExRtn&quot;</span><span class="hl std">]</span> <span class="hl kwb">&lt;-</span> <span class="hl std">data</span><span class="hl opt">$</span><span class="hl std">RET</span><span class="hl opt">-</span><span class="hl std">data</span><span class="hl opt">$</span><span class="hl std">sprtrn</span>
+<span class="hl std">data</span> <span class="hl kwb">&lt;-</span> <span class="hl std">data[,</span><span class="hl opt">-</span><span class="hl num">5</span><span class="hl opt">:-</span><span class="hl num">6</span><span class="hl std">]</span>
+<span class="hl std">data[,</span><span class="hl str">&quot;flag&quot;</span><span class="hl std">]</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">rep</span><span class="hl std">(</span><span class="hl num">0</span><span class="hl std">,</span><span class="hl kwd">nrow</span><span class="hl std">(data))</span>
+<span class="hl std">ind</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">which</span><span class="hl std">(data</span><span class="hl opt">$</span><span class="hl std">PAYDT</span><span class="hl opt">!=</span><span class="hl str">&quot;&quot;</span><span class="hl std">)</span>
+<span class="hl std">matchinfo</span> <span class="hl kwb">&lt;-</span> <span class="hl kwa">function</span><span class="hl std">(</span><span class="hl kwc">matchVar</span><span class="hl std">){</span>
+  <span class="hl std">rtn</span> <span class="hl kwb">&lt;-</span> <span class="hl std">data</span><span class="hl opt">$</span><span class="hl std">ExRtn[(matchVar</span><span class="hl opt">-</span><span class="hl num">20</span><span class="hl std">)</span><span class="hl opt">:</span><span class="hl std">(matchVar</span><span class="hl opt">+</span><span class="hl num">20</span><span class="hl std">)]</span>
+  <span class="hl kwa">if</span> <span class="hl std">((</span><span class="hl kwd">length</span><span class="hl std">(</span><span class="hl kwd">unique</span><span class="hl std">(data</span><span class="hl opt">$</span><span class="hl std">PERMNO[(matchVar</span><span class="hl opt">-</span><span class="hl num">20</span><span class="hl std">)</span><span class="hl opt">:</span><span class="hl std">(matchVar</span><span class="hl opt">+</span><span class="hl num">20</span><span class="hl std">)])))</span><span class="hl opt">==</span><span class="hl num">1</span><span class="hl std">){</span>
+    <span class="hl kwd">return</span><span class="hl std">(rtn)</span>
+  <span class="hl std">}</span>
+<span class="hl std">}</span>
+<span class="hl std">stock_rtn</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">sapply</span><span class="hl std">(ind[</span><span class="hl num">2</span><span class="hl opt">:</span><span class="hl std">(</span><span class="hl kwd">length</span><span class="hl std">(ind)</span><span class="hl opt">-</span><span class="hl num">1</span><span class="hl std">)],matchinfo)</span>
+<span class="hl std">stock_rtn</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">as.data.table</span><span class="hl std">(stock_rtn)</span>
+<span class="hl std">stock_mean</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">apply</span><span class="hl std">(stock_rtn,</span><span class="hl num">1</span><span class="hl std">,mean)</span>
+<span class="hl kwd">names</span><span class="hl std">(stock_mean)</span> <span class="hl kwb">&lt;-</span> <span class="hl std">(</span><span class="hl opt">-</span><span class="hl num">20</span><span class="hl opt">:</span><span class="hl num">20</span><span class="hl std">)</span>
+<span class="hl kwd">summary</span><span class="hl std">(stock_mean)</span>  <span class="hl com">#Summary of stock_mean</span>
+<span class="hl kwd">plot</span><span class="hl std">(stock_mean,</span><span class="hl kwc">x</span> <span class="hl std">=</span> <span class="hl kwd">names</span><span class="hl std">(stock_mean),</span><span class="hl kwc">xlab</span> <span class="hl std">=</span> <span class="hl str">&quot;Event Day&quot;</span><span class="hl std">,</span><span class="hl kwc">ylab</span> <span class="hl std">=</span> <span class="hl str">&quot;Average Stock Return&quot;</span><span class="hl std">,</span><span class="hl kwc">type</span> <span class="hl std">=</span> <span class="hl str">&quot;b&quot;</span><span class="hl std">,</span><span class="hl kwc">col</span> <span class="hl std">=</span> <span class="hl str">&quot;blue&quot;</span><span class="hl std">)</span>
+</pre></div>
+</div></div>
+
+
+
+<h1>Conclusion</h1>
+
+<p style = "font-family:arial; line-height:20px">
+As the graph and dataset of 135348 events show, the announcement of dividend payment has short effect on the stock price. On the event day, the stock return exceeds S&P 500 because all the investors buy the stock with expectation of good performance of the company, which pushes the stock price up. However, after the event day, the excess return drops a lot due to largely selling stocks, which shows that the effect of the dividend payment announcement has been digested. So the stock price falls down. As for other trading days, the stock price goes randomly without any specialty. Thus the strategy of dividend payment event might be a very short investment opportunity. 
+</p>
+
+</body>
+</html>
